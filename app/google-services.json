@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "505635134184",
+    "firebase_url": "https://parting-c9472.firebaseio.com",
+    "project_id": "parting-c9472",
+    "storage_bucket": "parting-c9472.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505635134184:android:39789dc6defc5119",
+        "android_client_info": {
+          "package_name": "kr.co.kingstork.parting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "505635134184-cjde8rk9i848vu15dgpn64j9skli33qp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.kingstork.parting",
+            "certificate_hash": "851d9a6b03f6c2f469c7755084bf58c72b22a2f0"
+          }
+        },
+        {
+          "client_id": "505635134184-c17fdb2am4lens541m2bcvjk6ro7llnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhIcJAmDTisIrptDVBUwPk-YhmBi_oZbw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505635134184-c17fdb2am4lens541m2bcvjk6ro7llnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
