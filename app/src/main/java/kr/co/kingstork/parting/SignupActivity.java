@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -58,35 +59,47 @@ public class SignupActivity extends AppCompatActivity {
         password=(EditText)findViewById(R.id.signupActivity_edittext_password);
         signup=(Button)findViewById(R.id.signupActivity_button_signup);
         signup.setBackgroundColor(Color.parseColor(splash_background));
+
         signup.setOnClickListener(new View.OnClickListener() {
         @Override
                 public void onClick(View view){
 
-                if(email.getText().toString() == null || name.getText().toString() == null || password.getText().toString() == null){
+                if(email.getText().toString() == null || name.getText().toString() == null || password.getText().toString() == null || imageUri == null){
                     return;
                 }
-                FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                final String uid =task.getResult().getUser().getUid();
-                                FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                        @SuppressWarnings("VisibleForTest")
-                                        String imageUrl = task.getResult().getDownloadUrl().toString();
+                if(imageUri == null)
+                {
+                    Toast.makeText(getApplicationContext(),"이미지를 삽입해주세요.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    FirebaseAuth.getInstance()
+                            .createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
+                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                        UserModel userModel = new UserModel();
-                                        userModel.userName = name.getText().toString();
-                                        userModel.profieImageUrl = imageUrl;
-                                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
-                                    }
-                                });
+                                    final String uid =task.getResult().getUser().getUid();
+                                    FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                            @SuppressWarnings("VisibleForTest")
+                                            String imageUrl = task.getResult().getDownloadUrl().toString();
 
-                            }
-                        });
+                                            UserModel userModel = new UserModel();
+                                            userModel.userName = name.getText().toString();
+                                            userModel.profieImageUrl = imageUrl;
+
+                                            FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                        }
+                                    });
+
+                                }
+                            });
+                }
+
             }
         });
     }
