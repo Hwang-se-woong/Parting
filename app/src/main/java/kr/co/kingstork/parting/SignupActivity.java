@@ -68,13 +68,11 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(imageUri == null)
-                {
-                    Toast.makeText(getApplicationContext(),"이미지를 삽입해주세요.",
-                            Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+                //if(imageUri == null)
+                //{
+                //    Toast.makeText(getApplicationContext(),"이미지를 삽입해주세요.",
+                //            Toast.LENGTH_LONG).show();
+                //}
                     FirebaseAuth.getInstance()
                             .createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
@@ -100,7 +98,7 @@ public class SignupActivity extends AppCompatActivity {
                             });
                 }
 
-            }
+
         });
     }
 

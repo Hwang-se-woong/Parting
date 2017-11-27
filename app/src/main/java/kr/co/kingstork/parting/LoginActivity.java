@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         id = (EditText)findViewById(R.id.loginActivity_edittext_id);
-        password = (EditText)findViewById(R.id.signupActivity_edittext_password);
+        password = (EditText)findViewById(R.id.loginActivity_edittext_password);
 
         login = (Button)findViewById(R.id.loginActivity_button_login);
         signup = (Button)findViewById(R.id.loginActivity_button_signup);
@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         //로그인 인터페이스 리스너
+
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -87,14 +88,16 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(!task.isSuccessful()){
-                            //로그인 실패한부분
+                       if(!task.isSuccessful()){
+                           //로그인 실패한부분
                             Toast.makeText(LoginActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
 
     }
+
 
     @Override
     protected void onStart() {
@@ -107,4 +110,5 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
         firebaseAuth.removeAuthStateListener(authStateListener);
     }
+
 }
