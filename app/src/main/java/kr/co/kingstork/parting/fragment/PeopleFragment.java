@@ -1,6 +1,8 @@
 package kr.co.kingstork.parting.fragment;
 
+import android.app.ActivityOptions;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.kingstork.parting.R;
+import kr.co.kingstork.parting.chat.MessageActivity;
 import kr.co.kingstork.parting.model.UserModel;
 
 /**
@@ -78,10 +81,19 @@ public class PeopleFragment extends Fragment{
 
             Glide.with
                     (holder.itemView.getContext())
-                    .load(userModels.get(position).profieImageUrl)
+                    .load(userModels.get(position).profileImageUrl)
                     .apply(new RequestOptions().circleCrop())
                     .into(((CustomViewHolder)holder).imageView);
             ((CustomViewHolder)holder).textView.setText(userModels.get(position).userName);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public  void onClick(View view){
+                    Intent intent = new Intent(view.getContext(), MessageActivity.class);
+                    ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(view.getContext(),R.anim.fromright,R.anim.toleft);
+                    startActivity(intent,activityOptions.toBundle());
+                }
+            });
         }
 
         @Override
