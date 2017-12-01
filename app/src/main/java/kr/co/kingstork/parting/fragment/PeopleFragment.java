@@ -77,7 +77,7 @@ public class PeopleFragment extends Fragment{
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
             Glide.with
                     (holder.itemView.getContext())
@@ -90,6 +90,7 @@ public class PeopleFragment extends Fragment{
                 @Override
                 public  void onClick(View view){
                     Intent intent = new Intent(view.getContext(), MessageActivity.class);
+                    intent.putExtra("destinationUid",userModels.get(position).uid);
                     ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(view.getContext(),R.anim.fromright,R.anim.toleft);
                     startActivity(intent,activityOptions.toBundle());
                 }
