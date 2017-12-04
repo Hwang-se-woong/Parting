@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,9 +54,16 @@ public class PeopleFragment extends Fragment{
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     userModels.clear();
+                    String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     //없애보고 추가해보고 하면 감이옴 <-- clear
-                    for(DataSnapshot snapshot :dataSnapshot.getChildren()){
-                        userModels.add(snapshot.getValue(UserModel.class));
+                    for(DataSnapshot snapshot :dataSnapshot.getChildren()){//친구들의 ID를 나타내주는곳
+
+                        UserModel userModel = snapshot.getValue(UserModel.class);
+
+                        if(userModel.uid.equals(myUid)){
+                            continue;
+                        }
+                        userModels.add(userModel);
                     }
                     notifyDataSetChanged();
 
